@@ -2,9 +2,9 @@ package org.exercicio.banco.template.model;
 
 /**
 *
-* Nome:
-* Curso:
-* Matrícula:
+* Nome: Cidyclay Lacerda Monteiro Junyor
+* Curso: Informática Para Internet
+* Matrícula:  20222INFIG0060
 * 
 */
 public class ContaBancaria {
@@ -45,6 +45,14 @@ public class ContaBancaria {
 	 * @param valor
 	 */
 	public void depositar(double valor) {
+
+		if(valor>0 && status==true ){
+			this.saldo = this.saldo +valor;
+			
+		}else{
+			System.out.print("Valor invalido para deposito.");
+		}
+
 		
 	}
 
@@ -61,6 +69,19 @@ public class ContaBancaria {
 	 * @param valor
 	 */
 	public void sacar(double valor) {
+		if(status==false){
+
+			System.out.print("Conta inativa.");
+		}else if(valor<=0){
+			System.out.print("Valor inválido para saque.");
+		}else if(this.saldo<valor && status==true){
+			System.out.print("Saldo insuficiente.");
+		}
+
+		else if(this.saldo>=valor && status==true){
+
+			this.saldo -= valor;
+		}
 		
 	}
 
@@ -73,6 +94,13 @@ public class ContaBancaria {
 	 * fechar a conta. Utilize System.out.print();
 	 */
 	public void fecharConta() {
+		if(this.status == false){
+			System.out.print("Conta ja inativa.");
+		}else if(this.saldo >0 && this.status==true){
+			System.out.print("Conta com saldo. Nao eh possivel fecha-la.");
+		}else if(this.status == true && this.saldo >=0){
+			this.status = false;
+		}
 		
 	}
 
@@ -82,7 +110,12 @@ public class ContaBancaria {
 	 * ativa." deve ser exibida no console. Utilize System.out.print();
 	 */
 	public void reabrirConta() {
-		
+		if(status==false){
+			this.status = true;
+		}else{
+			System.out.print("Conta já ativa.");
+		}
+
 	}
 
 	/**
@@ -100,6 +133,18 @@ public class ContaBancaria {
 	 * @param destino
 	 */
 	public void realizarTransferencia(double quantia, ContaBancaria destino) {
+
+		if(status==false){
+				System.out.print("Conta de origem inativa.");
+		}else if(destino.status==false){
+				System.out.print("Conta de destino inativa.");
+		}else if(quantia > this.saldo){
+			System.out.print("Saldo insuficiente para transferencia.");
+		}else if(quantia<=this.saldo && this.status ==true && destino.status ==true){
+			 this.saldo -= quantia;
+			 destino.saldo += quantia;
+		}
+
 
 	}
 
